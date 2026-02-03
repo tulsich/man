@@ -21,41 +21,44 @@
       background: #0b0b16;
     }
 
-    /* Blurred photo background */
+    /* 🔥 Blurred photo background (bg.jpg) */
     body::before {
       content: "";
       position: fixed;
       inset: 0;
-      background: url("images/bg.jpg") center / cover no-repeat;
-      filter: blur(18px) saturate(1.1);
-      transform: scale(1.15);
-      opacity: 0.55;
+
+      /* cache-busting added (?v=1) */
+      background: url("bg.jpg?v=1") center / cover no-repeat;
+
+      filter: blur(20px) saturate(1.15);
+      transform: scale(1.18);
+      opacity: 0.6;
       z-index: -2;
       animation: bgFloat 18s ease-in-out infinite alternate;
     }
 
-    /* Soft gradient overlay */
+    /* soft aesthetic overlay */
     body::after {
       content: "";
       position: fixed;
       inset: 0;
       background: linear-gradient(
         135deg,
-        rgba(255, 214, 232, 0.75),
-        rgba(199, 210, 255, 0.75)
+        rgba(255, 214, 232, 0.7),
+        rgba(199, 210, 255, 0.7)
       );
       z-index: -1;
     }
 
     @keyframes bgFloat {
-      0%   { transform: scale(1.15) translate(0, 0); }
-      100% { transform: scale(1.22) translate(-14px, -12px); }
+      0%   { transform: scale(1.18) translate(0, 0); }
+      100% { transform: scale(1.25) translate(-16px, -12px); }
     }
 
     .card {
       position: relative;
       z-index: 1;
-      background: rgba(255, 255, 255, 0.92);
+      background: rgba(255, 255, 255, 0.94);
       padding: 28px 30px;
       border-radius: 22px;
       width: 340px;
@@ -132,7 +135,6 @@
   <div class="card">
     <div class="title">for you 🫶✨</div>
 
-    <!-- fallback text shows if JS ever fails -->
     <div class="text" id="text">
 Hey love 🫶
 Don’t stress yourself too much.
@@ -202,4 +204,3 @@ I love you ❤️`;
 
 </body>
 </html>
-
