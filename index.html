@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>For You ❤️</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -19,82 +18,87 @@
       font-family: "Poppins", system-ui, sans-serif;
       overflow: hidden;
       background: #0b0b16;
+      padding: 18px; /* helps on small screens */
     }
 
-    /* 🔥 Blurred photo background (bg.jpg) */
+    /* ✅ Photo layer (more visible, less blur) */
     body::before {
       content: "";
       position: fixed;
       inset: 0;
+      background: url("bg.jpg?v=4") center / cover no-repeat;
 
-      /* cache-busting added (?v=1) */
-      background: url("bg.jpg?v=1") center / cover no-repeat;
+      /* less blur + more punch */
+      filter: blur(10px) saturate(1.35) contrast(1.15) brightness(0.95);
 
-      filter: blur(20px) saturate(1.15);
-      transform: scale(1.18);
-      opacity: 0.6;
+      transform: scale(1.12);
+      opacity: 0.88;
       z-index: -2;
       animation: bgFloat 18s ease-in-out infinite alternate;
     }
 
-    /* soft aesthetic overlay */
+    /* ✅ Lighter overlay so photo shows through */
     body::after {
       content: "";
       position: fixed;
       inset: 0;
       background: linear-gradient(
         135deg,
-        rgba(255, 214, 232, 0.7),
-        rgba(199, 210, 255, 0.7)
+        rgba(255, 214, 232, 0.32),
+        rgba(199, 210, 255, 0.32)
       );
       z-index: -1;
     }
 
     @keyframes bgFloat {
-      0%   { transform: scale(1.18) translate(0, 0); }
-      100% { transform: scale(1.25) translate(-16px, -12px); }
+      0%   { transform: scale(1.12) translate(0, 0); }
+      100% { transform: scale(1.18) translate(-14px, -12px); }
     }
 
+    /* ✅ Bigger + responsive card */
     .card {
       position: relative;
       z-index: 1;
       background: rgba(255, 255, 255, 0.94);
-      padding: 28px 30px;
-      border-radius: 22px;
-      width: 340px;
+      border-radius: 24px;
       text-align: center;
       box-shadow: 0 24px 60px rgba(0,0,0,0.18);
+      backdrop-filter: blur(6px);
+
+      /* responsive sizing */
+      width: min(92vw, 420px);
+      padding: 34px 32px;
+
       transform: translateY(20px) scale(0.95);
       opacity: 0;
       animation: popIn 1.1s cubic-bezier(.2,.9,.2,1) forwards;
-      backdrop-filter: blur(6px);
     }
 
     .title {
-      font-size: 18px;
-      font-weight: 700;
+      font-size: 20px;
+      font-weight: 800;
       letter-spacing: 0.3px;
       color: #ff3f7a;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       animation: pulse 2.2s ease-in-out infinite;
     }
 
     .text {
-      font-size: 15.5px;
-      line-height: 1.65;
+      font-size: 16.5px;
+      line-height: 1.7;
       color: #2f2f2f;
-      min-height: 210px;
       white-space: pre-line;
+      min-height: 240px;
     }
 
     .cursor {
       display: inline-block;
       width: 2px;
-      height: 18px;
+      height: 20px;
       background: #ff3f7a;
-      margin-left: 4px;
+      margin-left: 5px;
       animation: blink 1s infinite;
-      vertical-align: -2px;
+      vertical-align: -3px;
     }
 
     .heart {
@@ -104,6 +108,7 @@
       animation: float 6s linear infinite;
       opacity: 0.9;
       filter: drop-shadow(0 6px 10px rgba(0,0,0,0.15));
+      pointer-events: none;
     }
 
     @keyframes blink {
@@ -127,6 +132,17 @@
       10% { opacity: 1; }
       100% { transform: translateY(-115vh) scale(1.5); opacity: 0; }
     }
+
+    /* ✅ Extra boost for small phones */
+    @media (max-width: 420px) {
+      .card {
+        width: 94vw;
+        padding: 30px 24px;
+        border-radius: 22px;
+      }
+      .title { font-size: 19px; }
+      .text  { font-size: 16px; min-height: 220px; }
+    }
   </style>
 </head>
 
@@ -135,6 +151,7 @@
   <div class="card">
     <div class="title">for you 🫶✨</div>
 
+    <!-- fallback text (shows even if JS ever fails) -->
     <div class="text" id="text">
 Hey love 🫶
 Don’t stress yourself too much.
